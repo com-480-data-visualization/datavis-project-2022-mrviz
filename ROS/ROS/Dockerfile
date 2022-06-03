@@ -10,7 +10,9 @@ RUN git clone https://github.com/Unity-Technologies/ROS-TCP-Endpoint /catkin_ws/
 COPY ./ros_docker/set-up-workplace.sh /setup.sh
 #COPY docker/tutorial /
 
-RUN chmod +x /setup.sh && source /setup.sh && rm /setup.sh
+RUN chmod +x /setup.sh
+RUN sed -i 's/\r$//' /setup.sh
+RUN source /setup.sh && rm /setup.sh
 
 WORKDIR /catkin_ws
 
@@ -21,4 +23,3 @@ RUN echo ". devel/setup.bash" >> ~/.bashrc
 RUN chmod +x src/ros_tcp_endpoint/src/ros_tcp_endpoint/*.py
 
 #ENTRYPOINT ["/tutorial"]
-
